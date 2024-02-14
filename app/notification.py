@@ -43,7 +43,8 @@ class Notifier(IndicatorUtils):
     """Handles sending notifications via the configured notifiers
     """
 
-    def __init__(self, notifier_config, indicator_config, conditional_config, market_data):
+    def __init__(self, notifier_config, indicator_config,
+                 conditional_config, market_data):
         """Initializes Notifier class
 
         Args:
@@ -171,7 +172,8 @@ class Notifier(IndicatorUtils):
                     self.notify_conditional(exchange, market_pair, _messages)
                 else:
                     for candle_period in _messages:
-                        if not isinstance(_messages[candle_period], list) or len(_messages[candle_period]) == 0:
+                        if not isinstance(_messages[candle_period], list) or len(
+                                _messages[candle_period]) == 0:
                             continue
 
                         self.notify_all_messages(
@@ -213,7 +215,8 @@ class Notifier(IndicatorUtils):
                             if msg['status'] == stat and stat in condition.keys():
                                 for indicator in condition[stat]:
                                     if msg['indicator'] in indicator.keys():
-                                        if indicator[msg['indicator']] == msg['indicator_number']:
+                                        if indicator[msg['indicator']
+                                                     ] == msg['indicator_number']:
                                             new_message['values'].append(
                                                 msg['values'])
                                             new_message['indicator'].append(
@@ -240,7 +243,8 @@ class Notifier(IndicatorUtils):
                     asyncio.run(self.notify_telegram([new_message], None))
                     self.notify_stdout([new_message])
 
-    def notify_all_messages(self, exchange, market_pair, candle_period, messages):
+    def notify_all_messages(self, exchange, market_pair,
+                            candle_period, messages):
         chart_file = None
 
         if self.enable_charts:
@@ -281,7 +285,8 @@ class Notifier(IndicatorUtils):
 
             if self.enable_charts:
                 if chart_file:
-                    self.discord_clients[notifier].send_chart_messages(chart_file, formatted_messages)
+                    self.discord_clients[notifier].send_chart_messages(
+                        chart_file, formatted_messages)
                 else:
                     self.logger.info(
                         'Chart file %s doesnt exist, sending text message.', chart_file)
@@ -443,7 +448,8 @@ class Notifier(IndicatorUtils):
                     if indicator_type == 'informants':
                         continue
                     for indicator in new_analysis[exchange][market][indicator_type]:
-                        for index, analysis in enumerate(new_analysis[exchange][market][indicator_type][indicator]):
+                        for index, analysis in enumerate(
+                                new_analysis[exchange][market][indicator_type][indicator]):
                             if analysis['result'].shape[0] == 0:
                                 continue
 
@@ -507,7 +513,7 @@ class Notifier(IndicatorUtils):
                                 try:
                                     last_status = self.last_analysis[exchange][market][
                                         indicator_type][indicator][index]['status']
-                                except:
+                                except BaseException:
                                     last_status = str()
 
                                 should_alert = True
@@ -565,7 +571,8 @@ class Notifier(IndicatorUtils):
 
     def should_i_alert(self, alert_frequency_key, alert_frequency):
         if alert_frequency_key in self.alert_frequencies:
-            if self.alert_frequencies[alert_frequency_key] > datetime.datetime.now():
+            if self.alert_frequencies[alert_frequency_key] > datetime.datetime.now(
+            ):
                 return False
         timedelta = self.parse_alert_fequency(alert_frequency)
         if timedelta:
@@ -610,7 +617,8 @@ class Notifier(IndicatorUtils):
                 for indicator_type in new_analysis[exchange][market_pair]:
                     if indicator_type == 'informants':
                         # Getting OHLC prices
-                        for index, analysis in enumerate(new_analysis[exchange][market_pair]['informants']['ohlcv']):
+                        for index, analysis in enumerate(
+                                new_analysis[exchange][market_pair]['informants']['ohlcv']):
                             values = dict()
                             for signal in analysis['config']['signal']:
                                 values[signal] = analysis['result'].iloc[-1][signal]
@@ -619,7 +627,8 @@ class Notifier(IndicatorUtils):
 
                         # Getting LRSI values
                         if 'lrsi' in new_analysis[exchange][market_pair]['informants']:
-                            for index, analysis in enumerate(new_analysis[exchange][market_pair]['informants']['lrsi']):
+                            for index, analysis in enumerate(
+                                    new_analysis[exchange][market_pair]['informants']['lrsi']):
                                 values = dict()
                                 for signal in analysis['config']['signal']:
                                     values[signal] = analysis['result'].iloc[-1][signal]
@@ -632,7 +641,8 @@ class Notifier(IndicatorUtils):
                         continue
 
                     for indicator in new_analysis[exchange][market_pair][indicator_type]:
-                        for index, analysis in enumerate(new_analysis[exchange][market_pair][indicator_type][indicator]):
+                        for index, analysis in enumerate(
+                                new_analysis[exchange][market_pair][indicator_type][indicator]):
                             if analysis['result'].shape[0] == 0:
                                 continue
 
@@ -702,7 +712,7 @@ class Notifier(IndicatorUtils):
                                 try:
                                     last_status = self.last_analysis[exchange][market_pair][
                                         indicator_type][indicator][index]['status']
-                                except:
+                                except BaseException:
                                     last_status = str()
 
                                 should_alert = True
@@ -719,7 +729,8 @@ class Notifier(IndicatorUtils):
                                 if not analysis['config']['alert_enabled']:
                                     should_alert = False
 
-                                if 'mute_cold' in analysis['config'] and analysis['config']['mute_cold'] == True and latest_result['is_cold'] == True:
+                                if 'mute_cold' in analysis['config'] and analysis['config'][
+                                        'mute_cold'] == True and latest_result['is_cold'] == True:
                                     self.logger.info(
                                         'Skiping cold notification for %s %s %s', market_pair, indicator, candle_period)
                                     should_alert = False
@@ -739,7 +750,8 @@ class Notifier(IndicatorUtils):
                                     candle_values = ohlcv_values[exchange][market_pair]
 
                                     if candle_period in candle_values:
-                                        for key, value in candle_values[candle_period].items():
+                                        for key, value in candle_values[candle_period].items(
+                                        ):
                                             price_value[key] = value
 
                                             value = format(
@@ -1043,7 +1055,7 @@ class Notifier(IndicatorUtils):
         ma25 = self.EMA(df, 25)
         ma99 = self.EMA(df, 99)
 
-        if(df['close'].count() > 120):
+        if (df['close'].count() > 120):
             df = df.iloc[-120:]
             ma7 = ma7.iloc[-120:]
             ma25 = ma25.iloc[-120:]
@@ -1062,7 +1074,7 @@ class Notifier(IndicatorUtils):
         try:
             self.candlestick_ohlc(ax, zip(_time, df['open'], df['high'], df['low'], df['close']), cdl=candle_pattern,
                                   width=stick_width, colorup='olivedrab', colordown='crimson')
-        except:
+        except BaseException:
             print(traceback.print_exc())
 
         ax.plot(df.index, ma7, color='darkorange', lw=0.8, label='EMA (7)')
@@ -1073,9 +1085,9 @@ class Notifier(IndicatorUtils):
         ax.text(0.04, 0.94, 'EMA (7, close)', color='darkorange',
                 transform=ax.transAxes, fontsize=textsize, va='top')
         ax.text(0.24, 0.94, 'EMA (25, close)', color='mediumslateblue',
-                transform=ax.transAxes,  fontsize=textsize, va='top')
+                transform=ax.transAxes, fontsize=textsize, va='top')
         ax.text(0.46, 0.94, 'EMA (99, close)', color='firebrick',
-                transform=ax.transAxes,  fontsize=textsize, va='top')
+                transform=ax.transAxes, fontsize=textsize, va='top')
 
     def plot_rsi(self, ax, df):
         textsize = 11
@@ -1083,7 +1095,7 @@ class Notifier(IndicatorUtils):
 
         rsi = self.relative_strength(df["close"])
 
-        if(df['close'].count() > 120):
+        if (df['close'].count() > 120):
             df = df.iloc[-120:]
             rsi = rsi[-120:]
 
@@ -1105,7 +1117,7 @@ class Notifier(IndicatorUtils):
         df = StockDataFrame.retype(df)
         df['macd'] = df.get('macd')
 
-        if(df['macd'].count() > 120):
+        if (df['macd'].count() > 120):
             df = df.iloc[-120:]
 
         min_y = df.macd.min()
@@ -1213,7 +1225,8 @@ class Notifier(IndicatorUtils):
         return a
 
     def EMA(self, df, n, field='close'):
-        return pd.Series(talib.EMA(df[field].astype('f8').values, n), name='EMA_' + field.upper() + '_' + str(n), index=df.index)
+        return pd.Series(talib.EMA(df[field].astype(
+            'f8').values, n), name='EMA_' + field.upper() + '_' + str(n), index=df.index)
 
     def plot_ichimoku(self, ax, df, historical_data, candle_period):
         indicator_conf = {}
@@ -1232,9 +1245,10 @@ class Notifier(IndicatorUtils):
         ichimoku_data = ichimoku.Ichimoku().analyze(historical_data, tenkansen_period,
                                                     kijunsen_period, senkou_span_b_period, chart=True)
 
-        if(df['close'].count() > 120):
+        if (df['close'].count() > 120):
             df = df.iloc[-120:]
-            ##change 146 if cloud displacement period changed in ichimoku.Ichimoku().calculate()##
+            # change 146 if cloud displacement period changed in
+            # ichimoku.Ichimoku().calculate()##
             ichimoku_data = ichimoku_data.iloc[-146:]
 
         _time = mdates.date2num(df.index.to_pydatetime())

@@ -1,5 +1,5 @@
 
-""" 
+"""
 Bollinger Bands indicator
 """
 
@@ -13,7 +13,8 @@ from analyzers.utils import IndicatorUtils
 
 class Bollinger(IndicatorUtils):
 
-    def analyze(self, historical_data, signal=['close'], hot_thresh=None, cold_thresh=None, period_count=20, std_dev=2):
+    def analyze(self, historical_data, signal=[
+                'close'], hot_thresh=None, cold_thresh=None, period_count=20, std_dev=2):
         """Check when close price cross the Upper/Lower bands.
 
         Args:

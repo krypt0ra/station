@@ -44,7 +44,8 @@ def main():
 
     for exchange in market_data:
         num = 1
-        for chunk in split_market_data(market_data[exchange], settings['market_data_chunk_size']):
+        for chunk in split_market_data(
+                market_data[exchange], settings['market_data_chunk_size']):
             market_data_chunk = dict()
             market_data_chunk[exchange] = {
                 key: market_data[exchange][key] for key in chunk}
@@ -84,7 +85,8 @@ def chunks(l, n):
 
 class AnalysisWorker(Thread):
 
-    def __init__(self, threadName, behaviour, notifier, market_data, settings, logger):
+    def __init__(self, threadName, behaviour, notifier,
+                 market_data, settings, logger):
         Thread.__init__(self)
 
         self.threadName = threadName

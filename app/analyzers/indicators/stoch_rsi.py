@@ -34,7 +34,8 @@ class StochasticRSI(IndicatorUtils):
 
         rsi = abstract.RSI(dataframe, period_count)
 
-        stochrsi  = (rsi - rsi.rolling(period_count).min()) / (rsi.rolling(period_count).max() - rsi.rolling(period_count).min())
+        stochrsi = (rsi - rsi.rolling(period_count).min()) / \
+            (rsi.rolling(period_count).max() - rsi.rolling(period_count).min())
         stochrsi_K = stochrsi.rolling(3).mean()
         stochrsi_D = stochrsi_K.rolling(3).mean()
 

@@ -11,7 +11,8 @@ class TwilioNotifier(NotifierUtils):
     """Class for handling twilio notifications
     """
 
-    def __init__(self, twilio_key, twilio_secret, twilio_sender_number, twilio_receiver_number):
+    def __init__(self, twilio_key, twilio_secret,
+                 twilio_sender_number, twilio_receiver_number):
         """Initialize TwilioNotifer class
 
         Args:

@@ -10,7 +10,8 @@ from analyzers.utils import IndicatorUtils
 
 
 class MACD(IndicatorUtils):
-    def analyze(self, historical_data, signal=['macd'], hot_thresh=None, cold_thresh=None):
+    def analyze(self, historical_data, signal=[
+                'macd'], hot_thresh=None, cold_thresh=None):
         """Performs a macd analysis on the historical data
 
         Args:
