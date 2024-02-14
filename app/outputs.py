@@ -116,7 +116,7 @@ class Output():
             str: Completed CSV message
         """
 
-        logger.warn(
+        self.logger.warn(
             'WARNING: CSV output is deprecated and will be removed in a future version')
 
         output = str()
