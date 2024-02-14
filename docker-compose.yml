@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+  app:
+    container_name: kriptora_station_app
+    build: .
+    volumes:
+      - .:/app
+    networks:
+      - local-network
+
+networks:
+    local-network:

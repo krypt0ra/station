@@ -1,0 +1,20 @@
+twilio>=6.6.3
+ccxt>=1.25.40
+structlog>=17.2.0
+python-json-logger>=0.1.8
+pandas>=0.22.0
+stockstats>=0.2.0
+TA-lib>=0.4.17
+tabulate>=0.8.2
+slackweb>=1.0.5
+tenacity>=4.8.0
+urllib3
+python-telegram-bot==20.0.0
+discord-webhook>=0.15.0
+jinja2>=2.10
+requests>=2.20.0
+PyYAML>=5.1
+newtulipy
+matplotlib>=3.0.1
+scipy>=1.1.0
+numpy>=1.22.2 # not directly required, pinned by Snyk to avoid a vulnerability
