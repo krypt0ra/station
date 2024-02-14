@@ -68,7 +68,7 @@ class TelegramNotifier(NotifierUtils):
         try:
             with open(photo_url, 'rb') as f:
                 await self.bot.send_photo(chat_id=self.chat_id,
-                                    photo=f.read(), timeout=__connect_timeout__)
+                                          photo=f.read(), timeout=__connect_timeout__)
         except Exception as e:
             self.logger.info('Unable to send chart messages using Telegram !')
             self.logger.debug(str(e))

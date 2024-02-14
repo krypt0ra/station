@@ -11,7 +11,8 @@ from analyzers.utils import IndicatorUtils
 
 class MACDCross(IndicatorUtils):
 
-    def analyze(self, historical_data, signal=['macd'], hot_thresh=None, cold_thresh=None):
+    def analyze(self, historical_data, signal=[
+                'macd'], hot_thresh=None, cold_thresh=None):
         """Performs a macd analysis on the historical data
 
         Args:
@@ -41,7 +42,9 @@ class MACDCross(IndicatorUtils):
         macd_cross['is_hot'] = False
         macd_cross['is_cold'] = False
 
-        macd_cross.at[macd_cross.index[-1], 'is_hot'] = previous_macd < previous_signal and current_macd > current_signal
-        macd_cross.at[macd_cross.index[-1], 'is_cold'] = previous_macd > previous_signal and current_macd < current_signal
+        macd_cross.at[macd_cross.index[-1],
+                      'is_hot'] = previous_macd < previous_signal and current_macd > current_signal
+        macd_cross.at[macd_cross.index[-1],
+                      'is_cold'] = previous_macd > previous_signal and current_macd < current_signal
 
         return macd_cross

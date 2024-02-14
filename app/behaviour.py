@@ -254,7 +254,7 @@ class Behaviour():
                         analysis_args['senkou_span_b_period'] = indicator_conf[
                             'senkou_span_b_period'] if 'senkou_span_b_period' in indicator_conf else 120
                         analysis_args['custom_strategy'] = indicator_conf['custom_strategy'] if 'custom_strategy' in indicator_conf else None
-                            
+
                     if indicator == 'candle_recognition':
                         analysis_args['candle_check'] = indicator_conf['candle_check'] if 'candle_check' in indicator_conf else 1
                         analysis_args['notification'] = indicator_conf['notification'] if 'notification' in indicator_conf else 'hot'
@@ -348,8 +348,10 @@ class Behaviour():
                     self.logger.debug("%s is disabled, skipping.", crossover)
                     continue
                 try:
-                    key_indicator = new_result[crossover_conf['key_indicator_type']][crossover_conf['key_indicator']][crossover_conf['key_indicator_index']]
-                    crossed_indicator = new_result[crossover_conf['crossed_indicator_type']][crossover_conf['crossed_indicator']][crossover_conf['crossed_indicator_index']]
+                    key_indicator = new_result[crossover_conf['key_indicator_type']
+                                               ][crossover_conf['key_indicator']][crossover_conf['key_indicator_index']]
+                    crossed_indicator = new_result[crossover_conf['crossed_indicator_type']
+                                                   ][crossover_conf['crossed_indicator']][crossover_conf['crossed_indicator_index']]
 
                     crossover_conf['candle_period'] = crossover_conf['key_indicator'] + \
                         str(crossover_conf['key_indicator_index'])
@@ -417,7 +419,8 @@ class Behaviour():
             self.logger.debug(traceback.format_exc())
         return historical_data
 
-    def _get_analysis_result(self, dispatcher, indicator, dispatcher_args, market_pair):
+    def _get_analysis_result(self, dispatcher, indicator,
+                             dispatcher_args, market_pair):
         """Get the results of performing technical analysis
 
         Args:

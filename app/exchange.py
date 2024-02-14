@@ -56,8 +56,10 @@ class ExchangeInterface():
                     self.logger.error(
                         "Unable to load exchange %s", new_exchange)
 
-    @retry(retry=retry_if_exception_type(ccxt.NetworkError), stop=stop_after_attempt(3))
-    def get_historical_data(self, market_pair, exchange, time_unit, start_date=None, max_periods=240):
+    @retry(retry=retry_if_exception_type(ccxt.NetworkError),
+           stop=stop_after_attempt(3))
+    def get_historical_data(self, market_pair, exchange,
+                            time_unit, start_date=None, max_periods=240):
         """Get historical OHLCV for a symbol pair
 
         Decorators:
@@ -132,7 +134,8 @@ class ExchangeInterface():
 
         return historical_data
 
-    @retry(retry=retry_if_exception_type(ccxt.NetworkError), stop=stop_after_attempt(3))
+    @retry(retry=retry_if_exception_type(ccxt.NetworkError),
+           stop=stop_after_attempt(3))
     def get_top_markets(self, exchange, base_markets):
         top_markets = []
 
@@ -161,7 +164,8 @@ class ExchangeInterface():
 
         return top_markets
 
-    @retry(retry=retry_if_exception_type(ccxt.NetworkError), stop=stop_after_attempt(3))
+    @retry(retry=retry_if_exception_type(ccxt.NetworkError),
+           stop=stop_after_attempt(3))
     def get_exchange_markets(self, exchanges=[], markets=[]):
         """Get market data for all symbol pairs listed on all configured exchanges.
 
@@ -216,7 +220,8 @@ class ExchangeInterface():
                         exchange_markets[exchange] = {key: curr_markets[key] for key in curr_markets
                                                       if curr_markets[key]['quote'] in self.base_markets[exchange]}
 
-                        if isinstance(self.exclude, list) and len(self.exclude) > 0:
+                        if isinstance(self.exclude, list) and len(
+                                self.exclude) > 0:
                             for base_market in self.base_markets[exchange]:
                                 for pair_to_exclude in self.exclude:
                                     exchange_markets[exchange].pop(

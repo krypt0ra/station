@@ -7,7 +7,8 @@ from analyzers.utils import IndicatorUtils
 
 
 class Candle_recognition(IndicatorUtils):
-    def analyze(self, historical_data, signal, notification='hot', candle_check=1, hot_thresh=None, cold_thresh=None):
+    def analyze(self, historical_data, signal, notification='hot',
+                candle_check=1, hot_thresh=None, cold_thresh=None):
         """Performs an candle pattern analysis on the historical data
 
         Args:

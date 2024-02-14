@@ -8,13 +8,14 @@ from analyzers.utils import IndicatorUtils
 
 
 class IIV(IndicatorUtils):
-    def analyze(self, historical_data, signal=['iiv'], hot_thresh=10, cold_thresh=0):
+    def analyze(self, historical_data, signal=[
+                'iiv'], hot_thresh=10, cold_thresh=0):
         """Performs an analysis about the increase in volumen on the historical data
 
         Args:
             historical_data (list): A matrix of historical OHCLV data.
             signal (list, optional): Defaults to iiv. The indicator line to check hot against.
-            hot_thresh (float, optional): Defaults to 10. 
+            hot_thresh (float, optional): Defaults to 10.
             cold_thresh: Unused
 
 

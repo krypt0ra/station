@@ -58,7 +58,7 @@ class Configuration():
             self.exchanges = user_config['exchanges']
         else:
             self.exchanges = dict()
-        
+
         if 'conditionals' in user_config:
             self.conditionals = user_config['conditionals']
         else:

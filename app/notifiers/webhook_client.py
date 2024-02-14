@@ -27,8 +27,8 @@ class WebhookNotifier(NotifierUtils):
             messages (dict): A dict with the messages to send.
         """
 
-        #market_pair = market_pair.replace('/', '_').lower()
-        #chart_file = '{}/{}_{}_{}.png'.format('./charts', exchange, market_pair, candle_period)
+        # market_pair = market_pair.replace('/', '_').lower()
+        # chart_file = '{}/{}_{}_{}.png'.format('./charts', exchange, market_pair, candle_period)
 
         data = {'messages': json.dumps(messages)}
 

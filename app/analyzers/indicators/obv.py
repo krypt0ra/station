@@ -10,7 +10,8 @@ from analyzers.utils import IndicatorUtils
 
 
 class OBV(IndicatorUtils):
-    def analyze(self, historical_data, signal=["obv"], hot_thresh=None, cold_thresh=None):
+    def analyze(self, historical_data, signal=[
+                "obv"], hot_thresh=None, cold_thresh=None):
         """Performs OBV analysis on the historical data
 
         Args:

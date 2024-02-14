@@ -41,7 +41,8 @@ class Output():
         for indicator_type in results:
             output += '\n{}:\t'.format(indicator_type)
             for indicator in results[indicator_type]:
-                for i, analysis in enumerate(results[indicator_type][indicator]):
+                for i, analysis in enumerate(
+                        results[indicator_type][indicator]):
                     if analysis['result'].shape[0] == 0:
                         self.logger.info('No results for %s #%s', indicator, i)
                         continue
@@ -89,7 +90,8 @@ class Output():
                         formatted_values = list()
                         for signal in analysis['config']['signal']:
                             value = analysis['result'].iloc[-1][signal]
-                            if isinstance(value, float) or isinstance(value, np.int32):
+                            if isinstance(value, float) or isinstance(
+                                    value, np.int32):
                                 formatted_values.append(format(value, '.8f'))
                             else:
                                 formatted_values.append(value)
@@ -122,21 +124,14 @@ class Output():
         output = str()
         for indicator_type in results:
             for indicator in results[indicator_type]:
-                for i, analysis in enumerate(results[indicator_type][indicator]):
+                for i, analysis in enumerate(
+                        results[indicator_type][indicator]):
                     value = str()
 
                     if indicator_type == 'crossovers':
-                        key_signal = '{}_{}'.format(
-                            analysis['config']['key_signal'],
-                            analysis['config']['key_indicator_index']
-                        )
-
+                        key_signal = f"{analysis['config']['key_signal']}_{analysis['config']['key_indicator_index']}"
                         key_value = analysis['result'].iloc[-1][key_signal]
-
-                        crossed_signal = '{}_{}'.format(
-                            analysis['config']['crossed_signal'],
-                            analysis['config']['crossed_indicator_index']
-                        )
+                        crossed_signal = f"{analysis['config']['crossed_signal']}_{analysis['config']['crossed_indicator_index']}"
 
                         crossed_value = analysis['result'].iloc[-1][crossed_signal]
 
@@ -171,7 +166,7 @@ class Output():
                         is_cold
                     ])
 
-                    output += '\n{}'.format(new_output)
+                    output += f'\n{new_output}'
 
         return output
 
@@ -186,12 +181,13 @@ class Output():
             str: Completed JSON message
         """
 
-        logger.warn(
+        self.logger.warn(
             'WARNING: JSON output is deprecated and will be removed in a future version')
 
         for indicator_type in results:
             for indicator in results[indicator_type]:
-                for index, analysis in enumerate(results[indicator_type][indicator]):
+                for index, analysis in enumerate(
+                        results[indicator_type][indicator]):
                     results[indicator_type][indicator][index]['result'] = analysis['result'].to_dict(
                         orient='records'
                     )[-1]
