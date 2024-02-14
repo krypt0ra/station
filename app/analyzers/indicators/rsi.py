@@ -12,7 +12,7 @@ from analyzers.utils import IndicatorUtils
 
 class RSI(IndicatorUtils):
     def analyze(self, historical_data, period_count=14,
-                signal=['rsi'], hot_thresh=None, cold_thresh=None,  lrsi_filter=None):
+                signal=['rsi'], hot_thresh=None, cold_thresh=None, lrsi_filter=None):
         """Performs an RSI analysis on the historical data
 
         Args:

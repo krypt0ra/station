@@ -1,5 +1,5 @@
 
-""" 
+"""
 Bollinger Bands indicator
 """
 
@@ -13,7 +13,8 @@ from analyzers.utils import IndicatorUtils
 
 class BBP(IndicatorUtils):
 
-    def analyze(self, historical_data, signal=['bbp'], hot_thresh=0, cold_thresh=0.8, period_count=20, std_dev=2):
+    def analyze(self, historical_data, signal=[
+                'bbp'], hot_thresh=0, cold_thresh=0.8, period_count=20, std_dev=2):
         """Check when close price cross the Upper/Lower bands.
 
         Args:
@@ -23,7 +24,7 @@ class BBP(IndicatorUtils):
             hot_thresh (float, optional): Defaults to 0. The threshold at which this might be
                 good to purchase.
             cold_thresh (float, optional): Defaults to 0.8. The threshold at which this might be
-                good to sell.            
+                good to sell.
             std_dev (int, optional): number of std dev to use. Common values are 2 or 1
 
         Returns:
