@@ -19,6 +19,9 @@ The installation and script running were  simplified. In the past if you made sm
 
 That's it. If you changed something in the code or in config - just restart the **make run** command (if it's usefull - feel free to push it here :) )
 
+# Versioning
+There are 3 segments of the version tag X.Y.Z where X represents major releases, Y minor changes - features, Z minor changes - bugfixes
+
 # TODOs
 As you know from the lines above (or if you found this repo probably you already know) that the original project has a lot of, dozens of bugs, git conflicts and much more. 
 So what I fixed was:
