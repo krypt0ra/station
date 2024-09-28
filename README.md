@@ -12,7 +12,7 @@ https://github.com/w1ld3r/crypto-signal (as for me the best fork for now)
 If there is a problem related with the project first you can try the official discord of original project: 
 https://discord.gg/MWTJVFf
 
-Otherwise you can cerate an issue here with your questions. I'm active in gituhb.
+Otherwise you can create an issue here with your questions. I'm active in github.
 
 # Installation
 I changed a lot of things in the first commit and the part of are docker related changes.
