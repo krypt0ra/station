@@ -8,6 +8,12 @@ https://github.com/CryptoSignal/Crypto-Signal
 
 https://github.com/w1ld3r/crypto-signal (as for me the best fork for now)
 
+# Contact
+If there is a problem related with the project first you can try the official discord of original project: 
+https://discord.gg/MWTJVFf
+
+Otherwise you can cerate an issue here with your questions. I'm active in gituhb.
+
 # Installation
 I changed a lot of things in the first commit and the part of are docker related changes.
 The installation and script running were  simplified. In the past if you made small change in the code or even in the config you had to rebuild the whole project. Now you just build, up the container and just run the script in/outside of the container using makefile.
