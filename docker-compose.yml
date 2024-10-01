@@ -1,5 +1,3 @@
-version: '3'
-
 services:
   app:
     container_name: kriptora_station_app
@@ -7,7 +5,18 @@ services:
     volumes:
       - .:/app
     networks:
-      - local-network
+      - kriptora-station-local-network
 
+  # You can comment Redis container creation if you dont need Redis pubsubs as a notifier
+  redis:
+    container_name: kriptora_station_redis
+    image: redis
+    command: redis-server --requirepass root --bind 0.0.0.0
+    ports:
+      - 63790:6379
+    networks:
+      - kriptora-station-local-network
 networks:
-    local-network:
+    kriptora-station-local-network:
+      driver: bridge
+      name: kriptora-station-local-network

@@ -4,18 +4,21 @@ mkfile_dir := $(dir $(mkfile_path))
 NAME = ''
 
 rebuild:
-	@docker-compose up -d --build && docker-compose start
+	@docker compose up -d --build && docker compose start
 
 start:
-	@docker-compose up -d --remove-orphans && docker-compose start
+	@docker compose up -d --remove-orphans && docker compose start
 
 stop:
-	@docker-compose stop
+	@docker compose stop
 
 restart: stop start
 
 connect_app:
 	@docker exec -it kriptora_station_app bash
+
+connect_redis:
+	@docker exec -it kriptora_station_redis bash
 
 run:
 	@docker exec -it kriptora_station_app sh -c "cd app && python app.py"
