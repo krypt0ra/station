@@ -35,6 +35,7 @@ from notifiers.stdout_client import StdoutNotifier
 from notifiers.telegram_client import TelegramNotifier
 from notifiers.twilio_client import TwilioNotifier
 from notifiers.webhook_client import WebhookNotifier
+from notifiers.redis_pubsub import RedisPublisher
 
 matplotlib.use('Agg')
 
@@ -69,6 +70,7 @@ class Notifier(IndicatorUtils):
         self.telegram_clients = {}
         self.webhook_clients = {}
         self.stdout_clients = {}
+        self.redis_pubsubs = {}
 
         enabled_notifiers = list()
         self.logger = structlog.get_logger()
@@ -136,6 +138,18 @@ class Notifier(IndicatorUtils):
                         url=notifier_config[notifier]['required']['url'],
                         username=notifier_config[notifier]['optional']['username'],
                         password=notifier_config[notifier]['optional']['password']
+                    )
+                    enabled_notifiers.append(notifier)
+
+            if notifier.startswith('redis'):
+                self.redis_configured = self._validate_required_config(notifier, notifier_config)
+
+                if self.redis_configured:
+                    self.redis_pubsubs[notifier] = RedisPublisher(
+                        host=notifier_config[notifier]['required']['host'],
+                        port=notifier_config[notifier]['required']['port'],
+                        channel=notifier_config[notifier]['required']['channel'],
+                        password=notifier_config[notifier]['optional']['password'],
                     )
                     enabled_notifiers.append(notifier)
 
@@ -242,6 +256,7 @@ class Notifier(IndicatorUtils):
                     self.notify_webhook([new_message], None)
                     asyncio.run(self.notify_telegram([new_message], None))
                     self.notify_stdout([new_message])
+                    self.notify_redis([new_message])
 
     def notify_all_messages(self, exchange, market_pair,
                             candle_period, messages):
@@ -265,6 +280,7 @@ class Notifier(IndicatorUtils):
         self.notify_email(messages)
         asyncio.run(self.notify_telegram(messages, chart_file))
         self.notify_stdout(messages)
+        self.notify_redis(messages)
 
     def notify_discord(self, messages, chart_file):
         """Send a notification via the discord notifier
@@ -389,6 +405,19 @@ class Notifier(IndicatorUtils):
 
         for notifier in self.webhook_clients:
             self.webhook_clients[notifier].notify(messages, chart_file)
+
+    def notify_redis(self, messages):
+        """Send a message to redis pubsub
+
+        Args:
+            messages (list): List of messages to send for a specific Exchanche/Market Pair/Candle Period
+        """
+
+        if not self.redis_configured:
+            return
+
+        for notifier in self.redis_pubsubs:
+            self.redis_pubsubs[notifier].notify(messages)
 
     def notify_stdout(self, messages):
         """Send a notification via the stdout notifier

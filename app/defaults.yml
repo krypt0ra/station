@@ -62,6 +62,13 @@ notifiers:
       enable: null
     optional:
       template: "{{exchange}}-{{market}}-{{indicator}}-{{indicator_number}} is {{status}}!{{ '\n' -}}"
+  redis:
+    required:
+      host: null
+      port: null
+      channel: "pubsub_channel"
+    optional:
+      password: null
 
 
 indicators:
