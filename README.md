@@ -28,7 +28,13 @@ That's it. If you changed something in the code or in config - just restart the 
 # Versioning
 There are 3 segments of the version tag X.Y.Z where X represents major releases, Y minor changes - features, Z minor changes - bugfixes
 
+# New features this child-project has
+- Fully optimized and fixed dockerization. Run this project just by once command.
+- Started since 02 Oct 2024 Redis pubsub notifier is available. You can create multiple connections and use RedisNotifier as a publisher to the channel which was set in config.yml
+
 # TODOs
+
+## These are FIXED!
 As you know from the lines above (or if you found this repo probably you already know) that the original project has a lot of, dozens of bugs, git conflicts and much more. 
 So what I fixed was:
 1. ichimoku indicator (pandas error)
