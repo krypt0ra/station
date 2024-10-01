@@ -17,5 +17,8 @@ restart: stop start
 connect_app:
 	@docker exec -it kriptora_station_app bash
 
+connect_redis:
+	@docker exec -it kriptora_station_redis bash
+
 run:
 	@docker exec -it kriptora_station_app sh -c "cd app && python app.py"
