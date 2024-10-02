@@ -64,11 +64,11 @@ notifiers:
       template: "{{exchange}}-{{market}}-{{indicator}}-{{indicator_number}} is {{status}}!{{ '\n' -}}"
   redis:
     required:
-      host: null
-      port: null
+      host: "kriptora_station_redis"
+      port: "6379"
       channel: "pubsub_channel"
     optional:
-      password: null
+      password: "root"
 
 
 indicators:
