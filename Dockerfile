@@ -14,8 +14,8 @@ RUN cd /tmp && \
 COPY .. .
 
 RUN pip install --upgrade pip
-RUN pip install -r app/requirements-step-1.txt
-RUN pip install -r app/requirements-step-2.txt
+RUN pip install -r app/requirements-step-1.txt --no-cache-dir --root-user-action=ignore
+RUN pip install -r app/requirements-step-2.txt --no-cache-dir --root-user-action=ignore
 
 CMD ["tail", "-f", "/dev/null"]
 

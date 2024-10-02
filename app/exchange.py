@@ -201,7 +201,6 @@ class ExchangeInterface():
                         self.logger.info(
                             '%s has no market %s, ignoring.', exchange, market)
             else:
-                print(self.base_markets)
                 if self.base_markets[exchange]:
                     if self.top_pairs and self.top_pairs > 0:
                         self.logger.info('Getting top %d pairs from %s in %s', self.top_pairs, str(
