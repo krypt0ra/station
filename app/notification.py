@@ -3,6 +3,7 @@
 import asyncio
 import copy
 import json
+import math
 import os
 import re
 import sys
@@ -748,7 +749,7 @@ class Notifier(IndicatorUtils):
 
                                 if not self.first_run and not self.conditional_config:
                                     if analysis['config']['alert_frequency'] == 'once' and last_status == status:
-                                        self.logger.info('Alert frecuency once. Dont alert. %s %s %s',
+                                        self.logger.info('Alert frequency once. Dont alert. %s %s %s',
                                                          market_pair, indicator, candle_period)
                                         should_alert = False
                                     else:
@@ -761,7 +762,7 @@ class Notifier(IndicatorUtils):
                                 if 'mute_cold' in analysis['config'] and analysis['config'][
                                         'mute_cold'] == True and latest_result['is_cold'] == True:
                                     self.logger.info(
-                                        'Skiping cold notification for %s %s %s', market_pair, indicator, candle_period)
+                                        'Skipping cold notification for %s %s %s', market_pair, indicator, candle_period)
                                     should_alert = False
 
                                 if should_alert:
@@ -770,8 +771,13 @@ class Notifier(IndicatorUtils):
                                     if len(base_currency) == 2:
                                         base_currency, quote_currency = base_currency
                                     precision = self.market_data[exchange][market_pair]['precision']
-                                    decimal_format = '.{}f'.format(
-                                        precision['price'])
+
+                                    precision_value = precision['price']
+                                    # Determine the number of decimal places
+                                    decimal_places = abs(
+                                        int(round(-math.log10(precision_value)))) if precision_value > 0 else 0
+                                    # Create a valid format specifier
+                                    decimal_format = '.{}f'.format(decimal_places)
 
                                     prices = ''
                                     price_value = {}
@@ -782,7 +788,6 @@ class Notifier(IndicatorUtils):
                                         for key, value in candle_values[candle_period].items(
                                         ):
                                             price_value[key] = value
-
                                             value = format(
                                                 value, decimal_format)
                                             prices = '{} {}: {}'.format(
