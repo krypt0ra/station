@@ -23,6 +23,10 @@ The installation and script running were  simplified. In the past if you made sm
 3. ```make start # sudo if you on linux```
 4. ```make run # sudo if you on linux```
 
+You can set which exchanges to handle with **make run** command by: ``` make run exchanges=binance,bybit ```. This is useful if you want to parse data from tens of exchanges but want to use different station instances connected with one redis pubsub. REMEMBER to enable that exchanges from config.yml AND THEN to filter.
+For example you can enable binance, bybit and bingx in config.yml and run 3 different **make run** commands like: ```make run exchanges=binance``` and ```make run exchanges=bybit``` and ```make run exchanges=bingx```
+By this way you will have faster data parsing and publishing into redis
+
 That's it. If you changed something in the code or in config - just restart the **make run** command (if it's usefull - feel free to push it here :) )
 
 # Versioning
@@ -31,6 +35,7 @@ There are 3 segments of the version tag X.Y.Z where X represents major releases,
 # New features this child-project has
 - Fully optimized and fixed dockerization. Run this project just by once command.
 - Started since 02 Oct 2024 Redis pubsub notifier is available. You can create multiple connections and use RedisNotifier as a publisher to the channel which was set in config.yml
+- Filterable exchanges from command line such as: ```make run exchanges=binance,bingx```. Useful when you want parse from tens of exchanges but in parallel
 
 # TODOs
 

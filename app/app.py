@@ -24,12 +24,23 @@ def main():
     config = Configuration()
     settings = config.settings
 
+    desired_exchanges = []
+
+    # Parse the command-line arguments
+    for i in range(1, len(sys.argv)):
+        if sys.argv[i].startswith("--exchanges="):
+            desired_exchanges = sys.argv[i].split("=")[1].split(',')
+
+    desired_exchanges = None if len(desired_exchanges) == 0 or (len(desired_exchanges) == 1 and desired_exchanges[0] == '') else desired_exchanges
+
     # Set up logger
     logs.configure_logging(settings['log_level'], settings['log_mode'])
     logger = structlog.get_logger()
 
+    filtered_exchanges = {key: value for key, value in config.exchanges.items() if key in desired_exchanges}
+
     # Configure and run configured behaviour.
-    exchange_interface = ExchangeInterface(config.exchanges)
+    exchange_interface = ExchangeInterface(filtered_exchanges)
 
     if settings['market_pairs']:
         market_pairs = settings['market_pairs']

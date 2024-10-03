@@ -13,7 +13,7 @@ services:
     image: redis
     command: redis-server --requirepass root --bind 0.0.0.0
     ports:
-      - 63790:6379
+      - 63791:6379
     networks:
       - kriptora-station-local-network
 networks:
