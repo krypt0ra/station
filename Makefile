@@ -21,4 +21,4 @@ connect_redis:
 	@docker exec -it kriptora_station_redis bash
 
 run:
-	@docker exec -it kriptora_station_app sh -c "cd app && python app.py"
+	@docker exec -it kriptora_station_app sh -c "cd app && python app.py --exchanges=$(exchanges)"
