@@ -40,7 +40,7 @@ def main():
     filtered_exchanges = {key: value for key, value in config.exchanges.items() if key in desired_exchanges}
 
     # Configure and run configured behaviour.
-    exchange_interface = ExchangeInterface(filtered_exchanges)
+    exchange_interface = ExchangeInterface(filtered_exchanges, settings)
 
     if settings['market_pairs']:
         market_pairs = settings['market_pairs']

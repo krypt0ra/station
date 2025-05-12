@@ -12,6 +12,7 @@ settings:
   market_data_chunk_size: 20
   market_pairs: null
   timezone: UTC
+  requests_trust_env: false
 
 exchanges: null
 

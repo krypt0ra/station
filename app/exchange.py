@@ -16,7 +16,7 @@ class ExchangeInterface():
     """Interface for performing queries against exchange API's
     """
 
-    def __init__(self, exchange_config):
+    def __init__(self, exchange_config, settings):
         """Initializes ExchangeInterface class
 
         Args:
@@ -33,6 +33,8 @@ class ExchangeInterface():
         for exchange in exchange_config:
             if exchange_config[exchange]['required']['enabled']:
                 parameters = {'enableRateLimit': True}
+                if 'requests_trust_env' in settings.keys():
+                    parameters['requests_trust_env'] = settings['requests_trust_env']
                 if 'future' in exchange_config[exchange].keys():
                     if exchange_config[exchange]['future'] == True:
                         parameters['options'] = {'defaultType': 'future'}
