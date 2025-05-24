@@ -1,15 +1,18 @@
-FROM python:latest
+FROM python:3.13
 WORKDIR /app
 
-# TA-lib is required by the python TA-lib wrapper. This provides analysis.
-COPY lib/ta-lib-0.4.0-src.tar.gz /tmp/ta-lib-0.4.0-src.tar.gz
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    wget \
+    && rm -rf /var/lib/apt/lists/*
 
-RUN cd /tmp && \
-  tar -xvzf ta-lib-0.4.0-src.tar.gz && \
-  cd ta-lib/ && \
-  ./configure --prefix=/usr && \
-  make && \
-  make install
+RUN wget https://github.com/TA-Lib/ta-lib/releases/download/v0.6.3/ta-lib-0.6.3-src.tar.gz && \
+    tar -xvzf ta-lib-0.6.3-src.tar.gz && \
+    cd ta-lib-0.6.3 && \
+    ./configure --prefix=/usr && \
+    make && \
+    make install && \
+    cd .. && rm -rf ta-lib*
 
 COPY .. .
 
