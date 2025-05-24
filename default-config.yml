@@ -7,6 +7,7 @@ settings:
     - ETH/BTC
     - LTC/BTC
     - XMR/BTC
+  requests_trust_env: false # config for ccxt requests, the default is false
 
 exchanges:
   bittrex:
